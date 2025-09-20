@@ -118,6 +118,105 @@ export class Crdt {
       .map((node) => node.text)
       .join("");
   }
+
+  addEvent(event: CrdtEvent) {
+    if (event.type === "insert") {
+      this._addInsertEvent(event);
+    } else {
+      this._addDeleteEvent(event);
+    }
+  }
+
+  _addInsertEvent(event: CrdtEvent) {
+    invariant(event.type === "insert");
+    // special case, insert at start
+    if (event.leftNode.client === 0) {
+      this.inserts.unshift({
+        pos: 0,
+        children: [
+          {
+            id: event.id,
+            text: event.text,
+          },
+        ],
+      });
+      for (let i = 1; i < this.inserts.length; ++i) {
+        this.inserts[i].pos += 1;
+      }
+      this.events.push(event);
+      this.clock = Math.max(this.clock, event.id.clock) + 1;
+      return;
+    }
+    let posNodeIndex = -1;
+    let diff = -1;
+    let found = false;
+    for (let i = 0; i < this.inserts.length; ++i) {
+      for (const [index, child] of this.inserts[i].children.entries()) {
+        if (
+          child.id.client === event.leftNode.client &&
+          child.id.clock === event.leftNode.clock
+        ) {
+          found = true;
+          posNodeIndex = i;
+          diff = index;
+          break;
+        }
+      }
+
+      if (found === true) {
+        break;
+      }
+    }
+    invariant(found, "invalid event");
+
+    const posNode = this.inserts[posNodeIndex];
+    posNode.children.splice(diff + 1, 0, {
+      id: event.id,
+      text: event.text,
+    });
+    for (let i = posNodeIndex + 1; i < this.inserts.length; ++i) {
+      this.inserts[i].pos += 1;
+    }
+    this.events.push(event);
+    // this is how logical clock work
+    this.clock = Math.max(this.clock, event.id.clock) + 1;
+  }
+
+  _addDeleteEvent(event: CrdtEvent) {
+    invariant(event.type === "insert");
+
+    let posNodeIndex = -1;
+    let diff = -1;
+    let found = false;
+    for (let i = 0; i < this.inserts.length; ++i) {
+      for (const [index, child] of this.inserts[i].children.entries()) {
+        if (
+          child.id.client === event.leftNode.client &&
+          child.id.clock === event.leftNode.clock
+        ) {
+          found = true;
+          posNodeIndex = i;
+          diff = index;
+          break;
+        }
+      }
+
+      if (found === true) {
+        break;
+      }
+    }
+    invariant(found, "invalid event");
+
+    const posNode = this.inserts[posNodeIndex];
+    posNode.children.splice(diff, 1);
+    for (let i = posNodeIndex + 1; i < this.inserts.length; ++i) {
+      this.inserts[i].pos -= 1;
+    }
+    this.deletes.push(event.id);
+    this.events.push(event);
+    // this is how logical clock work
+    this.clock = Math.max(this.clock, event.id.clock) + 1;
+  }
 }
 
 function getRightMostNode(node: PosNode): TextNode {
