@@ -63,6 +63,15 @@ describe("crdt", () => {
     `);
     });
 
+    it("can insert to start", () => {
+      const crdt = new Crdt();
+      crdt.insert(0, "a");
+      expect(crdt.toText()).toBe("a");
+
+      crdt.insert(0, "0");
+      expect(crdt.toText()).toBe("0a");
+    });
+
     it("can delete text", () => {
       const crdt = new Crdt();
       crdt.insert(0, "a");

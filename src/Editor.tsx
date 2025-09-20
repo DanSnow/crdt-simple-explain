@@ -7,28 +7,28 @@ export interface EditEvent {
 }
 
 interface Props {
+  value: string;
   onEdit?: (edits: EditEvent[]) => void;
 }
 
-export function Editor({ onEdit = console.log }: Props) {
-  const [text, setText] = React.useState("");
+export function Editor({ value, onEdit = console.log }: Props) {
   const previousText = React.useRef("");
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = event.target.value;
     const oldText = previousText.current;
+    console.log({ newText, oldText });
 
     const edits = [
       detectInsertions(newText, oldText),
       detectDeletions(newText, oldText),
     ].filter((x: EditEvent | undefined): x is EditEvent => Boolean(x));
 
-    setText(newText);
     onEdit(edits);
     previousText.current = newText;
   };
 
-  return <textarea onChange={handleChange} value={text} />;
+  return <textarea onChange={handleChange} value={value} />;
 }
 
 function diffInsertion(newText: string, oldText: string) {

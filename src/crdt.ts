@@ -32,6 +32,8 @@ export class Crdt {
 
   events: CrdtEvent[] = [];
 
+  listeners: Set<(event: CrdtEvent) => void> = new Set();
+
   insert(pos: number, text: string) {
     const id = {
       client: this.client,
@@ -52,7 +54,7 @@ export class Crdt {
           },
         ],
       });
-      this.events.push({
+      const event: CrdtEvent = {
         id,
         // use a special id to repersent start
         leftNode: {
@@ -61,7 +63,9 @@ export class Crdt {
         },
         text,
         type: "insert",
-      });
+      };
+      this.events.push(event);
+      this._emitUpdate(event);
       return;
     }
 
@@ -69,7 +73,9 @@ export class Crdt {
     const left: ID =
       diff !== 0
         ? posNode.children[diff - 1].id
-        : getRightMostNode(this.inserts[posNodeIndex - 1]).id;
+        : posNodeIndex === 0
+          ? { client: 0, clock: 0 }
+          : getRightMostNode(this.inserts[posNodeIndex - 1]).id;
     posNode.children.splice(diff, 0, {
       id,
       text,
@@ -78,12 +84,15 @@ export class Crdt {
     for (let i = posNodeIndex + 1; i < this.inserts.length; ++i) {
       this.inserts[i].pos += 1;
     }
-    this.events.push({
+    const event: CrdtEvent = {
       id,
       leftNode: left,
       text,
       type: "insert",
-    });
+    };
+    // no clock + 1 because we did it when init the id
+    this.events.push(event);
+    this._emitUpdate(event);
   }
 
   delete(pos: number) {
@@ -99,7 +108,7 @@ export class Crdt {
     for (let i = posNodeIndex + 1; i < this.inserts.length; ++i) {
       this.inserts[i].pos -= 1;
     }
-    this.events.push({
+    const event: CrdtEvent = {
       type: "delete",
       id,
       // no left node for delete
@@ -108,8 +117,10 @@ export class Crdt {
         clock: 0,
       },
       text: "",
-    });
+    };
+    this.events.push(event);
     this.clock += 1;
+    this._emitUpdate(event);
   }
 
   toText() {
@@ -124,6 +135,21 @@ export class Crdt {
       this._addInsertEvent(event);
     } else {
       this._addDeleteEvent(event);
+    }
+  }
+
+  onUpdate(listener: (event: CrdtEvent) => void) {
+    this.listeners.add(listener);
+
+    return () => {
+      this.listeners.delete(listener);
+    };
+  }
+
+  _emitUpdate(event: CrdtEvent) {
+    console.log(event);
+    for (const listener of this.listeners) {
+      listener(event);
     }
   }
 
@@ -180,6 +206,7 @@ export class Crdt {
     this.events.push(event);
     // this is how logical clock work
     this.clock = Math.max(this.clock, event.id.clock) + 1;
+    this._emitUpdate(event);
   }
 
   _addDeleteEvent(event: CrdtEvent) {
@@ -216,6 +243,7 @@ export class Crdt {
     this.events.push(event);
     // this is how logical clock work
     this.clock = Math.max(this.clock, event.id.clock) + 1;
+    this._emitUpdate(event);
   }
 }
 
