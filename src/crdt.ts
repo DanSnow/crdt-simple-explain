@@ -1,9 +1,5 @@
 import invariant from "tiny-invariant";
-
-interface ID {
-  client: number;
-  clock: number;
-}
+import type { CrdtEvent, ID } from "./protocol";
 
 interface PosNode {
   pos: number;
@@ -11,13 +7,6 @@ interface PosNode {
 }
 
 interface TextNode {
-  id: ID;
-  text: string;
-}
-
-interface CrdtEvent {
-  type: "insert" | "delete";
-  leftNode: ID;
   id: ID;
   text: string;
 }
@@ -32,7 +21,9 @@ export class Crdt {
 
   events: CrdtEvent[] = [];
 
-  listeners: Set<(event: CrdtEvent) => void> = new Set();
+  listeners: Set<(event?: CrdtEvent) => void> = new Set();
+
+  lastSyncClock = 0;
 
   insert(pos: number, text: string) {
     const id = {
@@ -130,6 +121,32 @@ export class Crdt {
       .join("");
   }
 
+  getSyncEvents() {
+    const lastSync = this.lastSyncClock;
+    this.lastSyncClock = this.clock;
+    const events = this.events.filter(
+      (event) => event.id.client === this.client && event.id.clock >= lastSync
+    );
+    return events;
+  }
+
+  addEvents(events_: CrdtEvent[]) {
+    const events = events_.slice().sort((a, b) => {
+      if (a.id.clock !== b.id.clock) {
+        return a.id.clock - b.id.clock;
+      }
+
+      return a.id.client - b.id.client;
+    });
+
+    for (const event of events) {
+      this.addEvent(event);
+    }
+    this.lastSyncClock = this.clock;
+    this._emitUpdate();
+    console.log("finish update");
+  }
+
   addEvent(event: CrdtEvent) {
     if (event.type === "insert") {
       this._addInsertEvent(event);
@@ -146,8 +163,7 @@ export class Crdt {
     };
   }
 
-  _emitUpdate(event: CrdtEvent) {
-    console.log(event);
+  _emitUpdate(event?: CrdtEvent) {
     for (const listener of this.listeners) {
       listener(event);
     }

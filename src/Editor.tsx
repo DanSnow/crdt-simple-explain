@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { crdt } from "./global";
 
 export interface EditEvent {
   type: "insert" | "delete";
@@ -14,10 +15,22 @@ interface Props {
 export function Editor({ value, onEdit = console.log }: Props) {
   const previousText = React.useRef("");
 
+  useEffect(() => {
+    const unsubscribe = crdt.onUpdate(() => {
+      previousText.current = crdt.toText();
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newText = event.target.value;
     const oldText = previousText.current;
     console.log({ newText, oldText });
+    if (Math.abs(newText.length - oldText.length) > 1) {
+      previousText.current = newText;
+      return;
+    }
 
     const edits = [
       detectInsertions(newText, oldText),

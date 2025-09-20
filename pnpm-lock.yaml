@@ -8,6 +8,15 @@ importers:
 
   .:
     dependencies:
+      '@orpc/client':
+        specifier: ^1.8.9
+        version: 1.8.9
+      '@orpc/contract':
+        specifier: ^1.8.9
+        version: 1.8.9
+      '@orpc/server':
+        specifier: ^1.8.9
+        version: 1.8.9
       react:
         specifier: ^19.1.1
         version: 19.1.1
@@ -17,6 +26,12 @@ importers:
       tiny-invariant:
         specifier: ^1.3.3
         version: 1.3.3
+      use-debounce:
+        specifier: ^10.0.6
+        version: 10.0.6(react@19.1.1)
+      zod:
+        specifier: ^4.1.9
+        version: 4.1.9
     devDependencies:
       '@types/react':
         specifier: ^19.1.13
@@ -24,6 +39,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.1.9
         version: 19.1.9(@types/react@19.1.13)
+      '@types/sharedworker':
+        specifier: ^0.0.181
+        version: 0.0.181
       '@vitejs/plugin-react':
         specifier: ^5.0.2
         version: 5.0.3(vite@7.1.6)
@@ -369,6 +387,49 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
+  '@orpc/client@1.8.9':
+    resolution: {integrity: sha512-Sn/kRmiWYnMvpSv6lQ6XCRxVfBxmO2z9y0m92TxVgkk37VAegf9Qs4+OnP7ELsy7Nn9qn+Nyo5fJNWeQmyFsWg==}
+
+  '@orpc/contract@1.8.9':
+    resolution: {integrity: sha512-DRYU3fOvUYO5CBdKG/CynMif36JTAej0rNgVLYHr2hXuaWkt8xqdZPl4GdMjP8ybsI204MawmERx9YwbhLcZ5A==}
+
+  '@orpc/interop@1.8.9':
+    resolution: {integrity: sha512-S5fk+G9cVzRCfsvrs36woOjjgXGNFB9/TCEQsF6ZEDt0XGIodT8DS7UUWT7NzJsKvq61cR4NAAxvsejWZnaSlg==}
+
+  '@orpc/server@1.8.9':
+    resolution: {integrity: sha512-VkTdiU5ED2Csj3NYcHg26T+naU0A9qv18/XidPwAlncmLuUNOG2B7LFBFVlRCTBxHzGkA3tUfZHBcH/r408sUQ==}
+    peerDependencies:
+      crossws: '>=0.3.4'
+      ws: '>=8.18.1'
+    peerDependenciesMeta:
+      crossws:
+        optional: true
+      ws:
+        optional: true
+
+  '@orpc/shared@1.8.9':
+    resolution: {integrity: sha512-tQgE8FBrlIztzb/QuQFgFM87bA0xnoM87aXD8A51/glS5P29Vw5Y56XsAiIstvZ3euVxuFTVjCEREQnXkfzTYw==}
+    peerDependencies:
+      '@opentelemetry/api': '>=1.9.0'
+    peerDependenciesMeta:
+      '@opentelemetry/api':
+        optional: true
+
+  '@orpc/standard-server-aws-lambda@1.8.9':
+    resolution: {integrity: sha512-JeGp55LnEn+CcfaBZSKqKxDY86EsT9yYeeav/Tm0vTIP0/4ygqj8e9Ogq0LnapB65n4FyWkdH/j/Z73vCtBYqg==}
+
+  '@orpc/standard-server-fetch@1.8.9':
+    resolution: {integrity: sha512-Z8Jk/F2jhqWcFOtd8YnCU81FWrI6ToXUivUkXgJ4ebMvD1yd53BdpdOLkQYpS0p6xwkAGT9Ox12wfUZ0P0VIQg==}
+
+  '@orpc/standard-server-node@1.8.9':
+    resolution: {integrity: sha512-ITnuI75OUKGmNAIaDMRdw8nDSzXi1bDzdDENK0e4bEWIM2+mtmnpnpzt3tHUBW6e4yVQtiF/BjFAnQ9caLXxWA==}
+
+  '@orpc/standard-server-peer@1.8.9':
+    resolution: {integrity: sha512-ELM2+wYxJ3++UGsQY2jnnXFpJHEvZcTICLiHr7gkLSAZH6W674KqaiWjd4Zkx9n2o2wUAJJ3RP3kvssAVKoD2A==}
+
+  '@orpc/standard-server@1.8.9':
+    resolution: {integrity: sha512-NuF8j9KzCYUCZF5UKS2QN/HIfg98OR+3bIxqXhHk361Wa10xAaJOVKYEgjnU/ZGCnhPGPWPhFvhbujGcKC4OWw==}
+
   '@rolldown/pluginutils@1.0.0-beta.35':
     resolution: {integrity: sha512-slYrCpoxJUqzFDDNlvrOYRazQUNRvWPjXA17dAOISY3rDMxX6k8K4cj2H+hEYMHF81HO3uNd5rHVigAWRM5dSg==}
 
@@ -482,6 +543,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@standard-schema/spec@1.0.0':
+    resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
+
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
 
@@ -513,6 +577,9 @@ packages:
 
   '@types/react@19.1.13':
     resolution: {integrity: sha512-hHkbU/eoO3EG5/MZkuFSKmYqPbSVk5byPFa3e7y/8TybHiLMACgI8seVYlicwk7H5K/rI2px9xrQp/C+AUDTiQ==}
+
+  '@types/sharedworker@0.0.181':
+    resolution: {integrity: sha512-QjfdtFxsy6EuwwWsZF0Ux8dbhYJ34kD7sQHwVZV8FQR58AcjF2uIyfBBSmi0cG15U3kgIk4FZWQtPD/X9KXnsg==}
 
   '@typescript-eslint/eslint-plugin@8.44.0':
     resolution: {integrity: sha512-EGDAOGX+uwwekcS0iyxVDmRV9HX6FLSM5kzrAToLTsr9OWCIKG/y3lQheCq18yZ5Xh78rRKJiEpP0ZaCs4ryOQ==}
@@ -689,6 +756,10 @@ packages:
 
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
+
+  cookie@1.0.2:
+    resolution: {integrity: sha512-9Kr/j4O16ISv8zBBhJoi4bXOYNTkFLOqSL3UDB0njXxCXNezjeyVrJyGOWtgfs/q2km1gwBcfH8q1yEGoMYunA==}
+    engines: {node: '>=18'}
 
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
@@ -974,6 +1045,9 @@ packages:
   node-releases@2.0.21:
     resolution: {integrity: sha512-5b0pgg78U3hwXkCM8Z9b2FJdPZlr9Psr9V2gQPESdGHqbntyFJKFW4r5TeWGFzafGY3hzs1JC62VEQMbl1JFkw==}
 
+  openapi-types@12.1.3:
+    resolution: {integrity: sha512-N4YtSYJqghVu4iek2ZUvcN/0aqH1kRDuNqzcycDxhOUpg7GdvLa2F3DgS6yBNhInhv2r/6I0Flkn7CqL8+nIcw==}
+
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
     engines: {node: '>= 0.8.0'}
@@ -1030,6 +1104,10 @@ packages:
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
+
+  radash@12.1.1:
+    resolution: {integrity: sha512-h36JMxKRqrAxVD8201FrCpyeNuUY9Y5zZwujr20fFO77tpUtGa6EZzfKw/3WaiBX95fq7+MpsuMLNdSnORAwSA==}
+    engines: {node: '>=14.18.0'}
 
   react-dom@19.1.1:
     resolution: {integrity: sha512-Dlq/5LAZgF0Gaz6yiqZCf6VCcZs1ghAJyrsu84Q/GT0gV+mCxbfmKNoGRKBYMJ8IEdGPqu49YWXD02GCknEDkw==}
@@ -1143,6 +1221,10 @@ packages:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
 
+  type-fest@4.41.0:
+    resolution: {integrity: sha512-TeTSQ6H5YHvpqVwBRcnLDCBnDOHWYu7IvGbHT6N8AOymcr9PJGjc1GTtiWZTYg0NCgYwvnYWEkVChQAr9bjfwA==}
+    engines: {node: '>=16'}
+
   typescript-eslint@8.44.0:
     resolution: {integrity: sha512-ib7mCkYuIzYonCq9XWF5XNw+fkj2zg629PSa9KNIQ47RXFF763S5BIX4wqz1+FLPogTZoiw8KmCiRPRa8bL3qw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -1163,6 +1245,12 @@ packages:
 
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
+
+  use-debounce@10.0.6:
+    resolution: {integrity: sha512-C5OtPyhAZgVoteO9heXMTdW7v/IbFI+8bSVKYCJrSmiWWCLsbUxiBSp4t9v0hNBTGY97bT72ydDIDyGSFWfwXg==}
+    engines: {node: '>= 16.0.0'}
+    peerDependencies:
+      react: '*'
 
   vite-node@3.2.4:
     resolution: {integrity: sha512-EbKSKh+bh1E1IFxeO0pg1n4dvoOTt0UDiXMd/qn++r98+jPO1xtJilvXldeuQ8giIB5IkpjCgMleHMNEsGH6pg==}
@@ -1257,6 +1345,9 @@ packages:
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  zod@4.1.9:
+    resolution: {integrity: sha512-HI32jTq0AUAC125z30E8bQNz0RQ+9Uc+4J7V97gLYjZVKRjeydPgGt6dvQzFrav7MYOUGFqqOGiHpA/fdbd0cQ==}
 
 snapshots:
 
@@ -1536,6 +1627,83 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
+  '@orpc/client@1.8.9':
+    dependencies:
+      '@orpc/shared': 1.8.9
+      '@orpc/standard-server': 1.8.9
+      '@orpc/standard-server-fetch': 1.8.9
+      '@orpc/standard-server-peer': 1.8.9
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
+  '@orpc/contract@1.8.9':
+    dependencies:
+      '@orpc/client': 1.8.9
+      '@orpc/shared': 1.8.9
+      '@standard-schema/spec': 1.0.0
+      openapi-types: 12.1.3
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
+  '@orpc/interop@1.8.9': {}
+
+  '@orpc/server@1.8.9':
+    dependencies:
+      '@orpc/client': 1.8.9
+      '@orpc/contract': 1.8.9
+      '@orpc/interop': 1.8.9
+      '@orpc/shared': 1.8.9
+      '@orpc/standard-server': 1.8.9
+      '@orpc/standard-server-aws-lambda': 1.8.9
+      '@orpc/standard-server-fetch': 1.8.9
+      '@orpc/standard-server-node': 1.8.9
+      '@orpc/standard-server-peer': 1.8.9
+      cookie: 1.0.2
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
+  '@orpc/shared@1.8.9':
+    dependencies:
+      radash: 12.1.1
+      type-fest: 4.41.0
+
+  '@orpc/standard-server-aws-lambda@1.8.9':
+    dependencies:
+      '@orpc/shared': 1.8.9
+      '@orpc/standard-server': 1.8.9
+      '@orpc/standard-server-fetch': 1.8.9
+      '@orpc/standard-server-node': 1.8.9
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
+  '@orpc/standard-server-fetch@1.8.9':
+    dependencies:
+      '@orpc/shared': 1.8.9
+      '@orpc/standard-server': 1.8.9
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
+  '@orpc/standard-server-node@1.8.9':
+    dependencies:
+      '@orpc/shared': 1.8.9
+      '@orpc/standard-server': 1.8.9
+      '@orpc/standard-server-fetch': 1.8.9
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
+  '@orpc/standard-server-peer@1.8.9':
+    dependencies:
+      '@orpc/shared': 1.8.9
+      '@orpc/standard-server': 1.8.9
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
+  '@orpc/standard-server@1.8.9':
+    dependencies:
+      '@orpc/shared': 1.8.9
+    transitivePeerDependencies:
+      - '@opentelemetry/api'
+
   '@rolldown/pluginutils@1.0.0-beta.35': {}
 
   '@rollup/rollup-android-arm-eabi@4.52.0':
@@ -1604,6 +1772,8 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.52.0':
     optional: true
 
+  '@standard-schema/spec@1.0.0': {}
+
   '@types/babel__core@7.20.5':
     dependencies:
       '@babel/parser': 7.28.4
@@ -1642,6 +1812,8 @@ snapshots:
   '@types/react@19.1.13':
     dependencies:
       csstype: 3.1.3
+
+  '@types/sharedworker@0.0.181': {}
 
   '@typescript-eslint/eslint-plugin@8.44.0(@typescript-eslint/parser@8.44.0(eslint@9.36.0)(typescript@5.8.3))(eslint@9.36.0)(typescript@5.8.3)':
     dependencies:
@@ -1866,6 +2038,8 @@ snapshots:
   concat-map@0.0.1: {}
 
   convert-source-map@2.0.0: {}
+
+  cookie@1.0.2: {}
 
   cross-spawn@7.0.6:
     dependencies:
@@ -2147,6 +2321,8 @@ snapshots:
 
   node-releases@2.0.21: {}
 
+  openapi-types@12.1.3: {}
+
   optionator@0.9.4:
     dependencies:
       deep-is: 0.1.4
@@ -2193,6 +2369,8 @@ snapshots:
   punycode@2.3.1: {}
 
   queue-microtask@1.2.3: {}
+
+  radash@12.1.1: {}
 
   react-dom@19.1.1(react@19.1.1):
     dependencies:
@@ -2298,6 +2476,8 @@ snapshots:
     dependencies:
       prelude-ls: 1.2.1
 
+  type-fest@4.41.0: {}
+
   typescript-eslint@8.44.0(eslint@9.36.0)(typescript@5.8.3):
     dependencies:
       '@typescript-eslint/eslint-plugin': 8.44.0(@typescript-eslint/parser@8.44.0(eslint@9.36.0)(typescript@5.8.3))(eslint@9.36.0)(typescript@5.8.3)
@@ -2320,6 +2500,10 @@ snapshots:
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
+
+  use-debounce@10.0.6(react@19.1.1):
+    dependencies:
+      react: 19.1.1
 
   vite-node@3.2.4:
     dependencies:
@@ -2406,3 +2590,5 @@ snapshots:
   yallist@3.1.1: {}
 
   yocto-queue@0.1.0: {}
+
+  zod@4.1.9: {}
