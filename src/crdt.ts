@@ -11,6 +11,8 @@ interface TextNode {
   text: string;
 }
 
+type UpdateListener = (event?: CrdtEvent) => void;
+
 export class Crdt {
   inserts: PosNode[] = [];
   deletes: ID[] = [];
@@ -21,7 +23,7 @@ export class Crdt {
 
   events: CrdtEvent[] = [];
 
-  listeners: Set<(event?: CrdtEvent) => void> = new Set();
+  listeners: Set<UpdateListener> = new Set();
 
   lastSyncClock = 0;
 
@@ -155,7 +157,7 @@ export class Crdt {
     }
   }
 
-  onUpdate(listener: (event: CrdtEvent) => void) {
+  onUpdate(listener: UpdateListener) {
     this.listeners.add(listener);
 
     return () => {
