@@ -1,9 +1,9 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
-import "./App.css";
 import { useDebouncedCallback } from "use-debounce";
 import { client } from "./client";
 import { Editor } from "./Editor";
 import { crdt } from "./global";
+import { DevTools } from "./DevTools";
 
 function App() {
   const [isSyncing, setIsSyncing] = useState(true);
@@ -61,6 +61,7 @@ function App() {
         }}
         value={text}
       />
+      <DevTools />
     </div>
   );
 }

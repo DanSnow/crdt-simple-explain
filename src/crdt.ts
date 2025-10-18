@@ -150,6 +150,13 @@ export class Crdt {
   }
 
   addEvent(event: CrdtEvent) {
+    const {id} = event
+
+    if (this.events.find(e => e.id.client === id.client && e.id.clock === id.clock)) {
+      // duplicate event
+      return
+    }
+
     if (event.type === "insert") {
       this._addInsertEvent(event);
     } else {
