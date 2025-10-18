@@ -1,4 +1,4 @@
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import "./App.css";
 import { useDebouncedCallback } from "use-debounce";
 import { client } from "./client";
@@ -6,12 +6,17 @@ import { Editor } from "./Editor";
 import { crdt } from "./global";
 
 function App() {
+  const [isSyncing, setIsSyncing] = useState(true);
+
   const text = useSyncExternalStore(
     (listener) => crdt.onUpdate(listener),
     () => crdt.toText()
   );
 
   const sendSyncEvent = useDebouncedCallback(() => {
+    if (!isSyncing) {
+      return;
+    }
     const { client: clientId, events } = crdt;
     const syncEvents = crdt.getSyncEvents();
     console.log("publish", { client: clientId, events, syncEvents });
@@ -34,6 +39,16 @@ function App() {
 
   return (
     <div>
+      <div>
+        <label>
+          Sync
+          <input
+            checked={isSyncing}
+            onChange={(event) => setIsSyncing(event.target.checked)}
+            type="checkbox"
+          />
+        </label>
+      </div>
       <Editor
         onEdit={(edits) => {
           for (const edit of edits) {
