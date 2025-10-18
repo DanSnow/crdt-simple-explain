@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { crdt } from "./global";
+import { Textarea } from "./components/ui/textarea";
 
 export interface EditEvent {
   type: "insert" | "delete";
@@ -41,7 +42,7 @@ export function Editor({ value, onEdit = console.log }: Props) {
     previousText.current = newText;
   };
 
-  return <textarea onChange={handleChange} value={value} />;
+  return <Textarea onChange={handleChange} value={value} />;
 }
 
 function diffInsertion(newText: string, oldText: string) {

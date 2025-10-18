@@ -4,6 +4,8 @@ import { client } from "./client";
 import { Editor } from "./Editor";
 import { crdt } from "./global";
 import { DevTools } from "./DevTools";
+import { Label } from "./components/ui/label";
+import { Checkbox } from "./components/ui/checkbox";
 
 function App() {
   const [isSyncing, setIsSyncing] = useState(true);
@@ -38,16 +40,15 @@ function App() {
   }, [sendSyncEvent]);
 
   return (
-    <div>
+    <div className="container mx-auto flex flex-col gap-2 p-8">
       <div>
-        <label>
+        <Label>
           Sync
-          <input
-            checked={isSyncing}
-            onChange={(event) => setIsSyncing(event.target.checked)}
-            type="checkbox"
+          <Checkbox
+           checked={isSyncing}
+            onCheckedChange={(checked) => setIsSyncing(checked as boolean)}
           />
-        </label>
+        </Label>
       </div>
       <Editor
         onEdit={(edits) => {
