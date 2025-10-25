@@ -1,69 +1,53 @@
-# React + TypeScript + Vite
+# CRDT Simple Explain
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project serves as a practical demonstration and explanation of Conflict-free Replicated Data Types (CRDTs) in a web application context. It showcases two distinct CRDT implementations: a simple counter and a collaborative text editor, built with modern web technologies.
 
-Currently, two official plugins are available:
+## Technologies Used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+*   **React**: A JavaScript library for building user interfaces.
+*   **Vite**: A fast build tool that provides an instant development server.
+*   **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
+*   **TanStack Router**: A powerful routing library for React applications.
+*   **Tailwind CSS**: A utility-first CSS framework for rapidly styling applications.
+*   **oRPC**: Used for efficient communication and synchronization of CRDT events between clients and the server.
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. Counter CRDT
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+A basic implementation of a CRDT for a numerical counter. It demonstrates how simple operations like incrementing and decrementing can be made conflict-free across multiple replicas, ensuring eventual consistency without complex reconciliation logic.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 2. Collaborative Text Editor CRDT
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+A more advanced CRDT implementation designed for real-time collaborative text editing. This feature showcases how character insertions and deletions can be managed across distributed clients, allowing multiple users to edit a document concurrently with automatic conflict resolution.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Project Structure Highlights
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+*   `src/main.tsx`: Entry point of the React application, setting up the TanStack Router.
+*   `src/routes/index.tsx`: The new main route, providing links to the different CRDT examples.
+*   `src/routes/editor.tsx`: The route for the collaborative text editor.
+*   `src/components/counter/crdt.ts`: Contains the logic for the Counter CRDT.
+*   `src/components/editor/crdt.ts`: Contains the core logic for the Collaborative Text Editor CRDT.
+*   `src/components/counter/sync-worker.worker.ts` and `src/components/editor/sync-worker.worker.ts`: These files handle synchronization, likely using Web Workers for background processing.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Getting Started
+
+To run this project locally:
+
+1.  **Install dependencies**:
+    ```bash
+    pnpm install
+    ```
+2.  **Start the development server**:
+    ```bash
+    pnpm dev
+    ```
+    This will typically start the application on `http://localhost:5173`.
+
+## How to Explore
+
+*   Navigate to the root URL (`/`) to see the introduction page with links to the CRDT examples.
+*   Explore the `/editor` route to interact with the collaborative text editor.
+*   Explore the `/counter` route to interact with the simple counter.
+*   Examine the `src/components/counter/crdt.ts` and `src/components/editor/crdt.ts` files to understand the CRDT implementations.
+*   Examine the `src/components/counter/sync-worker.worker.ts` and `src/components/editor/sync-worker.worker.ts` files to see how synchronization is handled, likely using Web Workers for background processing.
