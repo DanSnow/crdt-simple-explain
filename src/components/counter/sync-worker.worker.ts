@@ -11,12 +11,16 @@ const syncServerImplement = implement(protocol);
 type Client = ContractRouterClient<typeof protocol>;
 const clients: Set<Client> = new Set();
 
+const seenEvents: Set<string> = new Set();
 const history: Event[] = [];
 
 const syncServer = syncServerImplement.router({
   publish: syncServerImplement.publish.handler(({ input }) => {
     console.log("receive events", input);
-    history.push(input);
+    if (!seenEvents.has(input.id)) {
+      history.push(input);
+      seenEvents.add(input.id);
+    }
 
     for (const client of clients.values()) {
       client.publish(input);
