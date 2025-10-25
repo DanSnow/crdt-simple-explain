@@ -1,18 +1,22 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "extends": ["ultracite"],
+  "files": {
+    "includes": ["**/*", "!**/node_modules/**/*", "!src/routeTree.gen.ts"]
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
   "linter": {
     "rules": {
       "style": {
         "useFilenamingConvention": "off"
-      },
-      "nursery": {
-        "useConsistentTypeDefinitions": {
-          "level": "error",
-          "options": {
-            "style": "interface"
-          }
-        }
       }
     }
   }

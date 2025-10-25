@@ -1,18 +1,18 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { client } from "./client";
+import { client } from "../../client";
+import { Checkbox } from "../ui/checkbox";
+import { Label } from "../ui/label";
+import { DevTools } from "./DevTools";
 import { Editor } from "./Editor";
 import { crdt } from "./global";
-import { DevTools } from "./DevTools";
-import { Label } from "./components/ui/label";
-import { Checkbox } from "./components/ui/checkbox";
 
-function App() {
+export function EditorSample() {
   const [isSyncing, setIsSyncing] = useState(true);
 
   const text = useSyncExternalStore(
     (listener) => crdt.onUpdate(listener),
-    () => crdt.toText()
+    () => crdt.toText(),
   );
 
   const sendSyncEvent = useDebouncedCallback(() => {
@@ -45,7 +45,7 @@ function App() {
         <Label>
           Sync
           <Checkbox
-           checked={isSyncing}
+            checked={isSyncing}
             onCheckedChange={(checked) => setIsSyncing(checked as boolean)}
           />
         </Label>
@@ -66,5 +66,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
