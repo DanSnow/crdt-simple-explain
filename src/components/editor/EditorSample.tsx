@@ -1,8 +1,8 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { client } from "../../client";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
+import { client } from "./client";
 import { DevTools } from "./DevTools";
 import { Editor } from "./Editor";
 import { crdt } from "./global";
