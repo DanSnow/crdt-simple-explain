@@ -1,6 +1,7 @@
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { Button } from "../ui/button";
 import { ButtonGroup } from "../ui/button-group";
+import { client } from "./client";
 import { crdt } from "./global";
 
 export function CounterSample() {
@@ -8,6 +9,13 @@ export function CounterSample() {
     (cb) => crdt.onUpdate(cb),
     () => crdt.toValue(),
   );
+
+  useEffect(() => {
+    crdt.onUpdate((event) => {
+      client.publish(event);
+    });
+  }, []);
+
   return (
     <div className="p-8">
       <div className="flex items-center flex-col justify-center">
