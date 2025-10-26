@@ -5,7 +5,8 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  base: mode === "production" ? "/crdt-simple-explain/" : "/", // Set base URL for GitHub Pages in production
   plugins: [
     tsconfigPaths(),
     tanstackRouter({
@@ -15,4 +16,4 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-});
+}));

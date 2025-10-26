@@ -44,6 +44,16 @@ To run this project locally:
     ```
     This will typically start the application on `http://localhost:5173`.
 
+## Deployment
+
+This project is configured to deploy to GitHub Pages automatically on pushes to the `main` branch.
+
+To manually deploy:
+
+```bash
+pnpm run deploy
+```
+
 ## How to Explore
 
 *   Navigate to the root URL (`/`) to see the introduction page with links to the CRDT examples.
