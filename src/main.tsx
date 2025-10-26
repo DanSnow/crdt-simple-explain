@@ -13,7 +13,6 @@ import { routeTree } from "./routeTree.gen";
 const router = createRouter({
   routeTree,
   history: createHashHistory(),
-  basepath: import.meta.env.BASE_URL,
 });
 
 // Register the router instance for type safety
