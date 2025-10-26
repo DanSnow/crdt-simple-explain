@@ -17,7 +17,6 @@ export class Crdt {
   inserts: PosNode[] = [];
   deletes: ID[] = [];
   // a 32 bit random integer
-  // biome-ignore lint/style/noMagicNumbers: 32 bit random number
   client = Math.floor(Math.random() * 2 ** 32);
   clock = 0;
 
@@ -127,7 +126,7 @@ export class Crdt {
     const lastSync = this.lastSyncClock;
     this.lastSyncClock = this.clock;
     const events = this.events.filter(
-      (event) => event.id.client === this.client && event.id.clock >= lastSync
+      (event) => event.id.client === this.client && event.id.clock >= lastSync,
     );
     return events;
   }
@@ -150,11 +149,15 @@ export class Crdt {
   }
 
   addEvent(event: CrdtEvent) {
-    const {id} = event
+    const { id } = event;
 
-    if (this.events.find(e => e.id.client === id.client && e.id.clock === id.clock)) {
+    if (
+      this.events.find(
+        (e) => e.id.client === id.client && e.id.clock === id.clock,
+      )
+    ) {
       // duplicate event
-      return
+      return;
     }
 
     if (event.type === "insert") {

@@ -5,7 +5,6 @@ const TEST_CLIENT = 4_294_967;
 
 describe("crdt", () => {
   beforeEach(() => {
-    // biome-ignore lint/style/noMagicNumbers: make random stable
     vi.spyOn(Math, "random").mockImplementation(() => 0.001);
   });
 

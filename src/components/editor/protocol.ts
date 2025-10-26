@@ -36,7 +36,7 @@ export const syncServerRouter = oc.router({
     .input(
       z.object({
         client: z.number(),
-      })
+      }),
     )
     .output(z.void()),
   unregister: oc.input(z.object({ client: z.number() })),
